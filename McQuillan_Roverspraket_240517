@@ -1,0 +1,92 @@
+/* 
+Jesse McQuillan
+/r/dailyprogrammer challenge
+Easy #212: Roverspraket
+05 Sep 2016
+*/
+
+#include <iostream>
+#include <string>
+//#include <sstream>
+//using namespace std;
+
+int mainMenu();
+void encode();
+void decode();
+
+int main()
+{
+std::cout << "Welcome to the Rövarspråket translation tool" << std::endl;
+if (mainMenu() == 1)
+{
+encode();
+}
+else
+{
+decode();
+}
+
+return 0;
+}
+int mainMenu()
+{
+//Present options
+int choice = 0;
+std::cout << "Please choose an option" << std::endl;
+std::cout << "1. Translate To" << std::endl;
+std::cout << "2. Decode From" << std::endl;
+//checks for non-integer inputs
+
+std::cin >> choice;
+while ((!(std::cin)) || (choice > 2) || (choice < 0))
+{
+std::cin.clear();
+std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+std::cout << "Please enter either 1 or 2" << std::endl;
+std::cin >> choice;
+}
+std::cout << "You chose option " << choice << std::endl;
+return choice;
+}
+void encode()
+{
+std::string encodeRov = "";
+std::string outRov = "";
+//clear input buffer
+std::cin.clear();
+std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//ask for an input
+std::cout << " Please enter what you would like translated to Rövarspråket! \n";
+std::getline(std::cin, encodeRov);
+//display input back
+std::cout << "You wrote: \n" << encodeRov << std::endl;
+for (size_t i = 0; i < encodeRov.length(); i++)
+{
+if (encodeRov[i] == 'a' || encodeRov[i] == 'A' || encodeRov[i] == 'å' || encodeRov[i] == 'Å' || encodeRov[i] == 'ä' ||
+encodeRov[i] == 'Ä' || encodeRov[i] == 'ö' || encodeRov[i] == 'Ö' || encodeRov[i] == 'e' || encodeRov[i] == 'E' ||
+encodeRov[i] == 'i' || encodeRov[i] == 'I' || encodeRov[i] == 'o' || encodeRov[i] == 'O' || encodeRov[i] == 'u' ||
+encodeRov[i] == 'U' || encodeRov[i] == 'y' || encodeRov[i] == 'Y')
+{
+outRov.append(1, encodeRov[i]);
+}
+else
+{
+char thisLetter = encodeRov[i];
+outRov += thisLetter;
+outRov = outRov + 'o';
+thisLetter = tolower(thisLetter);
+outRov += thisLetter;
+}
+
+}
+std::cout << outRov << std::endl;
+system("Pause");
+}
+void decode()
+{
+std::string decodeRov;
+std::cout << " Please enter what you would like translated from Rövarspråket! \n";
+std::getline(std::cin, decodeRov);
+std::cout << decodeRov;
+system("Pause");
+}
