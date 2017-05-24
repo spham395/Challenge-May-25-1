@@ -14,9 +14,9 @@ The output will be the encoded string.
 
 A few notes: your program should be able to handle case properly, which means that "Hello" should be encoded to "Hohelollolo", and not as "HoHelollolo" (note the second capital "H").
 
-Also, since Rövarspråket is a Swedish invention, your program should follow Swedish rules regarding what is a vowel and what is a consonant. The Swedish alphabet is the same as the English alphabet except that there are three extra characters at the end (Å, Ä and Ö) which are all vowels. In addition, Y is always a vowel in Swedish, so the full list of vowels in Swedish is A, E, I, O, U, Y, Å, Ä and Ö. The rest are consonants.
+Also, since Rövarspråket is a Swedish invention, your program should follow Swedish rules regarding what is a vowel and what is a consonant. The Swedish alphabet is the same as the English alphabet except that there are three extra characters at the end (Å, Ä and Ö) which are all vowels. In addition, Y is always a vowel in Swedish, so the full list of vowels in Swedish is A, E, I, O, U, Y, Å, Ä and Ö. The rest are consonants. Any character that is not a vowel or a consonant (i.e. things like punctuation) should be left intact in the output.
 
-Lastly, any character that is not a vowel or a consonant (i.e. things like punctuation) should be left intact in the output. 
+Lastly once you've made your program encode into Roverspraket now create a second function to decode Roverspraket and a main menu to choose which one you would like to do.
 
 Example inputs
 
