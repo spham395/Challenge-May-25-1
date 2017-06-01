@@ -1,0 +1,79 @@
+using System;
+					
+public class Program
+{
+	public static void Main()
+	{
+		string strDecision="";
+		Console.WriteLine("Type 'E' to encode or 'D' to decode.");
+		strDecision=Console.ReadLine();
+		if (strDecision.ToUpper()=="E")
+		{
+			Encode();
+		}	
+		else if(strDecision.ToUpper()=="D")
+		{
+			Decode();
+		}
+		else
+		{
+			Main();
+		}
+	}
+	public static void Encode()
+	{
+		string strInput="";
+		string strOutput="";
+		strInput= Console.ReadLine();
+		foreach (char charUserInput in strInput)
+		{
+			if (CheckTheLetter(charUserInput)==true)
+			{
+				strOutput+=charUserInput.ToString()+"o"+charUserInput.ToString().ToLower();
+			}
+			else
+			{
+				strOutput+=charUserInput.ToString();
+			}
+		}
+		Console.WriteLine(strOutput);
+	}
+	public static void Decode()
+	{
+		string strDecodeInput="";
+		int intCounter=0;
+		string strOutput="";
+		strDecodeInput=Console.ReadLine();
+		do
+		{
+			strOutput+=strDecodeInput[intCounter];
+			if(CheckTheLetter(strDecodeInput[intCounter])==true)
+			{
+				intCounter+=3;
+			}
+			else
+			{
+				intCounter++;
+			}
+		}while(intCounter<strDecodeInput.Length);
+		Console.WriteLine(strOutput);
+	}
+	public static bool CheckTheLetter(char charInput)
+	{
+		char[] charLetters= {'B','C','D','F','G','H','J','K','L','M','N','P','Q','R','S','T','V','W','X','Z'};
+		bool blMatch=true;
+		foreach(char charcheck in charLetters)
+			{
+				if(charcheck.ToString()==charInput.ToString().ToUpper())
+				{
+					blMatch=true;
+					break;
+				}
+				else
+				{
+					blMatch=false;
+				}
+			}
+		return blMatch;
+	}
+}
