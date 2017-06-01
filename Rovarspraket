@@ -1,0 +1,100 @@
+using System;
+using System.Linq;
+
+public class Rovarspraket
+{
+  	public static void Main(string[] args)
+  	{
+    	string menu;
+		string vowels = "AEIOUÄÅÖ";
+    
+    	Console.WriteLine("Do you want to encode into Rovarspraket or decode from it?");
+    	Console.WriteLine("Enter E for encode or D for decode");
+    
+    	menu = Console.ReadLine();
+		menu = menu.Trim();
+    	menu = menu.ToUpper();
+    
+    	if (menu == "E")
+			Console.WriteLine(Rovarspraket.Encode(vowels));
+    	else if (menu == "D")
+      		Console.WriteLine(Rovarspraket.Decode(vowels));
+    	else
+    	{
+      	Console.WriteLine("Error.");
+      	Rovarspraket.Main(null);
+    	}
+		
+		Rovarspraket.Continue();
+		return;
+  	}
+	
+  	public static string Encode(string vowels)
+  	{
+	  	string input;
+	  	string addOut;
+	  	string output = "";
+	  
+	  	Console.WriteLine("What do you want to encode?");
+	  	input = Console.ReadLine();
+	  	input = input.Trim();
+	  
+		//Loops through each character to check if it's a letter and if it's not a vowel.  If so, encode.  If not, leave alone.
+	  	for (int i = 0; i < input.Length; i++)
+	  	{
+		  	if (char.IsLetter(input[i]) && !vowels.Contains(char.ToUpper(input[i])))
+		  	{
+			  	addOut = input[i] + "o" + char.ToLower(input[i]);
+			  	output += addOut;
+		  	}
+		  	else
+			  	output += input[i];
+	  	}
+	  
+	  	return output;
+  	}
+	
+	public static string Decode(string vowels)
+	{
+		string input;
+		string output = "";
+		
+		Console.WriteLine("What do you want to decode?");
+		input = Console.ReadLine();
+		input = input.Trim();
+		
+		//loops through each char in input.  If it's a letter and not a vowel, skip past the coded part of the letter to check next letter
+		for (int i = 0; i < input.Length; i++)
+		{
+			if (char.IsLetter(input[i]) && !vowels.Contains(char.ToUpper(input[i])))
+			{
+				output += input[i];
+				i += 2;
+			}
+			else
+				output += input[i];
+		}
+		
+		return output;
+	}
+	
+	public static void Continue()
+	{
+		string input;
+		
+		Console.WriteLine("Would you like to try again?  Enter Y or N.");
+		input = Console.ReadLine();
+		input = input.Trim();
+		input = input.ToUpper();
+		
+		if (input == "Y")
+			Rovarspraket.Main(null);
+		else if (input == "N")
+			return;
+		else
+		{
+			Console.WriteLine("Error.");
+			Rovarspraket.Continue();
+		}
+	}
+}
