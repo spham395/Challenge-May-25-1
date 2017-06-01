@@ -1,5 +1,4 @@
-
-/* 
+*
 Jesse McQuillan
 /r/dailyprogrammer challenge
 Easy #212: Roverspraket
@@ -9,6 +8,8 @@ Easy #212: Roverspraket
 #include <iostream>
 #include <string>
 #include <limits>
+
+//#include <sstream>
 //using namespace std;
 
 int mainMenu();
@@ -17,78 +18,131 @@ void decode();
 
 int main()
 {
+	bool quit = false;
+	int menuChoice = 0;
 std::cout << "Welcome to the Rövarspråket translation tool" << std::endl;
-if (mainMenu() == 1)
-{
-encode();
-}
-else
-{
-decode();
-}
 
+while (!quit)
+{
+	menuChoice = mainMenu();
+	if (menuChoice == 1)
+	{
+		encode();
+	}
+	else if (menuChoice == 2)
+	{
+		decode();
+	}
+	else
+	{
+		return 0;
+	}
+}
 return 0;
 }
-
 int mainMenu()
 {
-//Present options
-int choice = 0;
-std::cout << "Please choose an option" << std::endl;
-std::cout << "1. Translate To" << std::endl;
-std::cout << "2. Decode From" << std::endl;
-//checks for non-integer inputs
+	//Present options
+	int choice = 0;
+	std::cout << "Please choose an option" << std::endl;
+	std::cout << "1. Translate To" << std::endl;
+	std::cout << "2. Decode From" << std::endl;
+	std::cout << "3. Quit Program" << std::endl;
+	//checks for non-integer inputs
 
-std::cin >> choice;
-while ((!(std::cin)) || (choice > 2) || (choice < 0))
-{
-std::cin.clear();
-std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-std::cout << "Please enter either 1 or 2" << std::endl;
-std::cin >> choice;
-}
-std::cout << "You chose option " << choice << std::endl;
-return choice;
+	std::cin >> choice;
+	while ((!(std::cin)) || (choice > 3) || (choice < 0))
+	{
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Please enter either 1, 2, or 3" << std::endl;
+		std::cin >> choice;
+	}
+	std::cout << "You chose option " << choice << std::endl;
+	return choice;
 }
 void encode()
 {
-std::string encodeRov = "";
-std::string outRov = "";
-//clear input buffer
-std::cin.clear();
-std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//ask for an input
-std::cout << " Please enter what you would like translated to Rövarspråket! \n";
-std::getline(std::cin, encodeRov);
-//display input back
-std::cout << "You wrote: \n" << encodeRov << std::endl;
-for (size_t i = 0; i < encodeRov.length(); i++)
-{
-if (encodeRov[i] == 'a' || encodeRov[i] == 'A' || encodeRov[i] == 'å' || encodeRov[i] == 'Å' || encodeRov[i] == 'ä' ||
-encodeRov[i] == 'Ä' || encodeRov[i] == 'ö' || encodeRov[i] == 'Ö' || encodeRov[i] == 'e' || encodeRov[i] == 'E' ||
-encodeRov[i] == 'i' || encodeRov[i] == 'I' || encodeRov[i] == 'o' || encodeRov[i] == 'O' || encodeRov[i] == 'u' ||
-encodeRov[i] == 'U' || encodeRov[i] == 'y' || encodeRov[i] == 'Y')
-{
-outRov.append(1, encodeRov[i]);
-}
-else
-{
-char thisLetter = encodeRov[i];
-outRov += thisLetter;
-outRov = outRov + 'o';
-thisLetter = tolower(thisLetter);
-outRov += thisLetter;
-}
+	std::string encodeRov = "";
+	std::string outRov = "";
+	//clear input buffer
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	//ask for an input
+	std::cout << " Please enter what you would like translated to Rövarspråket! \n";
+	std::getline(std::cin, encodeRov);
+	//display input back
+	std::cout << "You wrote: \n" << encodeRov << std::endl;
 
-}
-std::cout << outRov << std::endl;
-system("Pause");
+	//loops checks each character input and either doubles it to Robber's language or leaves it alone and adds it to the end of a new string
+	for (size_t i = 0; i < encodeRov.length(); i++)
+	{
+		char thisLetter = encodeRov[i];
+
+		//looks for special characters
+		if (!isalpha(thisLetter))
+		{
+			outRov += thisLetter;
+		}
+		//looks for vowels
+		else if (thisLetter == 'a' || thisLetter == 'A' || thisLetter == 'å' || thisLetter == 'Å' || thisLetter == 'ä' ||
+			thisLetter == 'Ä' || thisLetter == 'ö' || thisLetter == 'Ö' || thisLetter == 'e' || thisLetter == 'E' ||
+			thisLetter == 'i' || thisLetter == 'I' || thisLetter == 'o' || thisLetter == 'O' || thisLetter == 'u' ||
+			thisLetter == 'U' || thisLetter == 'y' || thisLetter == 'Y')
+		{
+			outRov += thisLetter;
+		}
+
+		else
+		{
+			//this is the meat and potatoes of Robber's Language!
+			outRov += thisLetter;
+			outRov += 'o';
+			thisLetter = tolower(thisLetter);
+			outRov += thisLetter;
+		}
+
+	}
+	std::cout << outRov << std::endl << std::endl;
 }
 void decode()
 {
-std::string decodeRov;
-std::cout << " Please enter what you would like translated from Rövarspråket! \n";
-std::getline(std::cin, decodeRov);
-std::cout << decodeRov;
-system("Pause");
+	std::string userIn = "";
+	std::string decodeRov = "";
+	char thisLetter = ' ';
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::cout << " Please enter what you would like translated from Rövarspråket! \n";
+	std::getline(std::cin, userIn);
+	std::cout << decodeRov;
+
+	//begin checking the input string for Robber's Language
+	for (size_t i = 0; i <= userIn.length(); i++)
+	{
+		//assign the current character to lowercase for comparison in the next step
+		thisLetter = tolower(userIn[i]);
+		//make sure the length is as least three characters longer than where I currently am right now
+		if (userIn.length() >= i + 2)
+		{
+			//the if before this is to make sure this step works. it has previously been referencing string positions that didn't exist (i + 3)
+			if ((thisLetter == userIn[i + 2]) && (userIn[i + 1] = 'o'))
+			{
+				decodeRov += userIn[i];
+				//incement i twice since we determined that the current and two following characters are all apart of Robber's Language
+				i++;
+				i++;
+			}
+			else
+			{
+				decodeRov += userIn[i];
+			}
+
+		}
+		else
+		{
+			decodeRov += userIn[i];
+		}
+	}
+	std::cout << "Here is your decoded text \n";
+	std::cout << decodeRov << std::endl << std::endl;
 }
