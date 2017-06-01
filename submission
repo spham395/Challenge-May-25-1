@@ -1,0 +1,72 @@
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace RoverSpraket
+{
+    class Program
+    {
+        static char[] vowels = new char[] { 'A', 'E', 'I', 'O', 'U', 'Y', 'Å', 'Ä', 'Ö' };
+        static Regex alphaChars = new Regex(@"^[a-zA-Z]*$");
+
+        static void Main(string[] args)
+        {
+            string menuOption = "";
+
+            while (true)
+            {
+                Console.WriteLine("Select a menu option:\n   1) Encode to Rövarspråket\n   2) Decode from Rövarspråket\n   3) Exit");
+                menuOption = Console.ReadLine();
+
+                if (menuOption == "3")
+                    break;
+                else if (menuOption == "1" || menuOption == "2")
+                {
+                    Console.Clear();
+                    Console.Write("Input the string you wish to encode/decode: ");
+                    string input = Console.ReadLine();
+                    Console.WriteLine("");
+
+                    if (menuOption == "1")
+                        Console.WriteLine("Your encoded string is: " + encodeToRover(input));
+                    else if (menuOption == "2")
+                        Console.WriteLine("Your decoded string is: " + decodeFromRover(input));
+
+                    Console.WriteLine("");
+                    Console.WriteLine("Press <enter> to return to the main menu.");
+                    Console.ReadLine();
+                }
+
+                Console.Clear();
+            }
+        }
+
+        static string encodeToRover(string input)
+        {
+            string encoded = "";
+
+            foreach (char c in input)
+                encoded += (vowels.Contains(char.ToUpper(c)) || !alphaChars.IsMatch(c.ToString())) ? c.ToString() : c + "o" + char.ToLower(c);
+
+            return encoded;
+        }
+
+        static string decodeFromRover(string input)
+        {
+            string decoded = "";
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                char c = input[i];
+                if ((vowels.Contains(char.ToUpper(c))) || !(alphaChars.IsMatch(c.ToString())))
+                    decoded += c;
+                else
+                {
+                    decoded += c;
+                    i += 2;
+                }
+            }
+            return decoded;
+        }
+    }
+}
