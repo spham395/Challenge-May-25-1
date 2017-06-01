@@ -1,0 +1,37 @@
+Consonant_list = ["b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","z"]
+strOutput = ''
+strInput = ''
+ans=True
+while ans:
+    print ("""
+    1.Translate to Rövarspråket
+    2.Translate from Rövarspråket
+    3. Exit
+    """)
+    ans=input("What would you like to do? ") 
+    if ans=="1":
+      
+       strInput=input(" What would you like to translate?")
+        
+       for index in strInput:
+         #Checks to see if letter is a Consonant
+        if index in Consonant_list or index.lower() in Consonant_list: 
+          strOutput = strOutput + index + 'o' + index.lower()
+        else:
+          strOutput = strOutput + index
+          
+       print (strOutput)
+      
+    elif ans=="2":
+       strInput=input(" What would you like to translate?")
+        
+       for index in strInput:
+        s = index+'o'+index.lower()
+        if s in strInput:
+         strInput =  strInput.replace(index + 'o' +index.lower(), index)
+       print (strInput)
+       
+    elif ans == "3":
+      quit()
+    elif ans !="":
+      print("\n Not Valid Choice Try again") 
