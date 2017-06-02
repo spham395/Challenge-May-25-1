@@ -1,3 +1,6 @@
+#This is DWs code that I straight copied so I could see how submitting to GitHub works.
+#All credit goes to DW and none to me
+
 Constant_list = ["b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","z"]
 Vowel_list = ["a","e","i","o","u", "y"]
 strOutput = ''
