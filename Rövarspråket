@@ -1,0 +1,79 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+class MainClass 
+{
+  public static StringBuilder Output = new StringBuilder();
+  public static string Input;
+  public static Dictionary<char, string> code = new Dictionary<char, string>();
+  public static char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r','s', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+  public static string[] alphaEncrypt = {"a", "bob", "coc", "dod", "e", "fof", "gog", "hoh", "i", "joj", "kok", "lol", "mom", "non", "o", "pop", "qoq", "ror","sos", "tot", "u", "vov", "wow", "xox", "y", "zoz"};
+  public static void Main () 
+  {
+    int Number;
+    for (int i = 0; i < alphabet.Length; i++)
+    {
+      code.Add(alphabet[i], alphaEncrypt[i]);
+    }
+    
+    Console.WriteLine("Enter 1 to translate to Rövarspråket. \nEnter 2 to translate Rövarspråket");
+    Input = Console.ReadLine();
+    if(Int32.TryParse(Input, out Number))
+    {
+      if (Number ==1)
+      {
+        Console.WriteLine("What would you like to translate?");
+        Console.WriteLine(toRövarspråket(Console.ReadLine()));
+        //Main();
+      }
+      else if (Number == 2)
+      {
+        Console.WriteLine("What would you like to translate?");
+        Console.WriteLine(fromRövarspråket(Console.ReadLine()));
+        //Main();
+      }
+    }
+    else
+    {
+      Console.WriteLine("Please enter 1 or 2");
+      Main();
+    }
+  }
+  public static string toRövarspråket(string Input)
+  {
+    foreach (char element in Input)
+    {
+      if (code.ContainsKey(element))
+      {
+        Output.Append(code[element]);
+      }
+      else
+      {
+        Output.Append(" ");
+      }
+    }
+    Input = Output.ToString();
+    return Input;
+    
+  }
+  public static string fromRövarspråket(string Input)
+  {
+    for (int i = 0; i < Input.Length; i++)
+    {
+      if (Input[i] != 'a' | Input[i] != 'e' | Input[i] != 'i' | Input[i] != 'o' | Input[i] != 'u' | Input[i] != 'y')
+      {
+        Output.Append(Input[i]);
+        i++;
+        i++;
+      }
+      else
+      {
+        Output.Append(" ");
+      }
+    }
+    Input = Output.ToString();
+    return Input;
+    
+  }
+}
